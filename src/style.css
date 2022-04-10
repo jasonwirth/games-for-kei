@@ -1,0 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    user-select: none;
+  }

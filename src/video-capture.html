@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        touch-action: none;
+        -webkit-touch-callout: none;
+        user-select: none;
+      }
+    </style>
+    <script defer>
+      let capture;
+      let rects = [];
+      let latestRect = null;
+
+      function setup() {
+        createCanvas(window.innerWidth, window.innerHeight);
+
+        let options = {
+          video: {
+            facingMode: {
+              exact: "environment",
+            },
+          },
+        };
+        // capture = createCapture(VIDEO);
+        capture = createCapture(options);
+        capture.hide();
+      }
+
+      function touchStarted(event) {
+        console.log("mousePressed:", event);
+        let point = {
+          x: event.touches[0].clientX,
+          y: event.touches[0].clientY,
+          time: 100,
+        };
+        rects.push(point);
+        return false;
+      }
+      // function touchStarted(event) {
+      //   console.log("mousePressed:", event);
+      //   let point = { x: event.clientX, y: event.clientY, time: 100 };
+      //   rects.push(point);
+      //   return false;
+      // }
+
+      function draw() {
+        background(150);
+        // if (capture.loadedmetadata) {
+        //   let c = capture.get(0, 0, 0, 0);
+        //   image(c, 0, 0);
+        // }
+        image(capture, 0, 0, capture.width, capture.height);
+
+        // if (touches.length) {
+        //   let t = touches[0];
+        //   if (latestRect === null || t.id < latestRect) {
+        //     t.time = 100;
+        //     rects.push(t);
+        //     latestRect = t.id;
+        //   }
+        // }
+        rects.forEach((t) => {
+          t.time = t.time - 1;
+          rect(t.x - 50, t.y - 50, 100, 100);
+        });
+
+        rects = rects.filter((t) => t.time > 0);
+
+        text(`rects: ${rects.length}`, 5, 10);
+      }
+    </script>
+  </head>
+  <body>
+    <main></main>
+  </body>
+</html>

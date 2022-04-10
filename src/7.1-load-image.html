@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/p5js/p5.js"></script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title></title>
+    <script defer>
+      var img;
+
+      function preload() {
+        img = loadImage("img/Chase_PNG.webp");
+      }
+
+      function setup() {
+        createCanvas(window.innerWidth, window.innerHeight);
+      }
+
+      function draw() {
+        background(255);
+        image(img, mouseX - img.width / 2, mouseY - img.height / 2);
+      }
+    </script>
+  </head>
+  <body>
+    <main></main>
+  </body>
+</html>

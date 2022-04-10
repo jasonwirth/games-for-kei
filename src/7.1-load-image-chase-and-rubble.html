@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="js/p5js/p5.js"></script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title></title>
+    <script defer>
+      var images = [];
+      var img;
+      var bg;
+      // using Array map and Math.random
+
+      const shuffledArr = (array) =>
+        array
+          .map((a) => ({ sort: Math.random(), value: a }))
+          .sort((a, b) => a.sort - b.sort)
+          .map((a) => a.value);
+
+      function preload() {
+        var chase = loadImage("img/Chase_PNG.webp");
+        var rubble = loadImage("img/Rubble_PNG.webp");
+        var skye = loadImage("img/PAW_Patrol_Skye_PNG_2.webp");
+        var rockey = loadImage("img/Rocky_PNG.webp");
+        var zuma = loadImage("img/Zuma_PNG.webp");
+        var marshall = loadImage("img/Marshall_PNG.webp");
+        var ryder = loadImage("img/Pic-ryder.webp");
+
+        bg = loadImage("img/pawpatrol-bg02.webp");
+        images.push(marshall);
+        images.push(chase);
+        images.push(rubble);
+        images.push(rockey);
+        images.push(zuma);
+        images.push(skye);
+        images.push(ryder);
+
+        images = shuffledArr(images);
+      }
+
+      function setup() {
+        createCanvas(window.innerWidth, window.innerHeight);
+      }
+
+      function draw() {
+        // scale(0.5);
+        background(255);
+        push();
+        scale(1.4);
+        image(bg, 0, 0);
+        pop();
+        touches.forEach((t, i) => {
+          img = images[i];
+          if (img) {
+            drawImage(img, t);
+          }
+        });
+      }
+
+      function drawImage(img, t) {
+        let draw = () => image(img, t.x - img.width / 2, t.y - img.height / 2);
+        if (t.x < width / 2) {
+          // push();
+          // scale(-1, 1);
+          draw();
+          // pop();
+        } else {
+          draw();
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main></main>
+  </body>
+</html>
